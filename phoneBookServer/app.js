@@ -3,11 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+app.use(cors());
+
+const _app_folder = 'dist/';
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,6 +22,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*.*', express.static(_app_folder, {maxAge: '1y'}));
+
+// ---- SERVE APLICATION PATHS ---- //
+app.all('*', function (req, res) {
+    res.status(200).sendFile(`/`, {root: _app_folder});
+});
+
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
