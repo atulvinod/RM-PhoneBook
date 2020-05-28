@@ -10,6 +10,7 @@ import { EditContactComponent } from './components/edit-contact/edit-contact.com
 import {ReactiveFormsModule} from '@angular/forms';
 import { HttpService } from './services/httpService';
 import { HttpClientModule } from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -20,10 +21,12 @@ import { HttpClientModule } from '@angular/common/http';
     EditContactComponent
   ],
   imports: [
+    
     HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

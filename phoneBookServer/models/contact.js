@@ -7,14 +7,8 @@ const Contact = new Schema({
         type:String,
         required:true
     },
-    phoneNumber:{
-        type:[],
-        required:true
-    },
-    email:{
-        type:[],
-        required:true
-    },
+    phoneNumber:[String],
+    email:[String],
     dateOfBirth:{
         type:String,
         default:"Not specified"

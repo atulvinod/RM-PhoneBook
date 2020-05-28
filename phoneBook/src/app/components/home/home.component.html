@@ -16,7 +16,23 @@
   <hr style="margin-top:4rem">
 
   <div id="contactsView" >
-   <app-phone-record *ngFor="let i of contacts" [ContactModel]=i></app-phone-record>
+    <div *ngIf="showLoader" id="mainPageLoader">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <app-phone-record *ngFor="let i of contacts" [ContactModel]=i></app-phone-record>
+    </div>
+   
   </div>
 
 

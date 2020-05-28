@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactModel } from 'src/app/interfaces/contactModel';
 import { FormGroup } from '@angular/forms';
+import { HttpService } from 'src/app/services/httpService';
 
 @Component({
   selector: 'app-home',
@@ -10,17 +11,27 @@ import { FormGroup } from '@angular/forms';
 export class HomeComponent implements OnInit {
 
   //Define a contacts array 
-  contacts: ContactModel[] = [
-    {name:"Jhon Doe",phoneNumber:["00000"],email:["atulvinod"],dateOfBirth:"11"}
-  ];
+  contacts: ContactModel[] = [];
+
+  showLoader:boolean = true
 
 
-  searchForm:FormGroup;
+  searchForm: FormGroup;
   
-  constructor() { }
+  constructor(private httpService: HttpService) {
+    
+   }
 
   ngOnInit(): void {
+
+    // when the component is initialized, fetch the contacts from the server
     this.searchForm = new FormGroup({})
+    this.httpService.getContacts().subscribe((result: ContactModel[])=>{
+      this.contacts = result
+
+      // Hide the loader
+      this.showLoader = false;
+    })
   }
 
 }

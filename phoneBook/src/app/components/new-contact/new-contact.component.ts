@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { stringify } from 'querystring';
 import { HttpService } from 'src/app/services/httpService';
-import { ContactModel } from 'src/app/interfaces/contactModel';
+import { ContactModelPayload } from 'src/app/interfaces/contactModelPayload';
 
 @Component({
   selector: 'app-new-contact',
@@ -44,9 +44,6 @@ export class NewContactComponent implements OnInit {
     this.emailArray.removeAt(value);
   }
 
-
-
-
   onSubmit() {
     let name = this.newContactFromGroup.get('name').value;
     let dateOfBirth = this.newContactFromGroup.get('dateOfBirth').value;
@@ -64,11 +61,12 @@ export class NewContactComponent implements OnInit {
     emails.push(this.newContactFromGroup.get('singleEmailInput').value);
 
     // request to be forwareded to the server
-    var request: ContactModel = {
+    var request: ContactModelPayload = {
       name,
       dateOfBirth,
       phoneNumber: phoneNumbers,
-      email: emails
+      email: emails,
+  
     }
 
     this.httpService.createNewContact(request).subscribe(result=>{

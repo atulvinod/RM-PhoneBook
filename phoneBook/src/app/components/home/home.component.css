@@ -26,5 +26,16 @@
     margin-top: 1rem;
     padding-left: 4%;
     padding-right:4%;
-    
+    position: relative;
+}
+#mainPageLoader{
+    background-color: white;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 98%;
+    z-index: 5;
 }

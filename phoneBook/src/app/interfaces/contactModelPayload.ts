@@ -1,8 +1,7 @@
-export interface ContactModel {
+export interface ContactModelPayload {
     name: string;
     phoneNumber: string[];
     email: string[],
     dateOfBirth: string,
-    _id:String
 
 }
