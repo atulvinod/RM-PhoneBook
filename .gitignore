@@ -1,2 +1,51 @@
 phoneBook/node_modules
 phoneBookServer/node_modules
+
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+phoneBook/dist
+phoneBook/tmp
+phoneBook/out-tsc
+# Only exists if Bazel was run
+phoneBook/bazel-out
+
+# dependencies
+phoneBook/node_modules
+
+# profiling files
+phoneBook/chrome-profiler-events*.json
+phoneBook/speed-measure-plugin*.json
+
+# IDEs and editors
+/.idea
+phoneBook/.project
+phoneBook/.classpath
+phoneBook/.c9/
+phoneBook/*.launch
+phoneBook/.settings/
+phoneBook/*.sublime-workspace
+
+# IDE - VSCode
+phoneBook/.vscode/*
+phoneBook/!.vscode/settings.json
+phoneBook/!.vscode/tasks.json
+phoneBook/!.vscode/launch.json
+phoneBook/!.vscode/extensions.json
+phoneBook/.history/*
+
+# misc
+phoneBook/.sass-cache
+phoneBook/connect.lock
+phoneBook/coverage
+phoneBook/libpeerconnection.log
+phoneBook/npm-debug.log
+phoneBook/yarn-error.log
+phoneBook/testem.log
+phoneBook/typings
+
+# System Files
+phoneBook/.DS_Store
+phoneBook/Thumbs.db
+
