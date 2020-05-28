@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PhoneRecordComponent } from './components/phone-record/phone-record.component';
 import { NewContactComponent } from './components/new-contact/new-contact.component';
 import { EditContactComponent } from './components/edit-contact/edit-contact.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { EditContactComponent } from './components/edit-contact/edit-contact.com
     EditContactComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule
   ],
