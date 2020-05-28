@@ -6,11 +6,21 @@ var logger = require('morgan');
 const cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+var config = require('./configuration')
+const connect = mongoose.connect(config.mongoDB).
+then(result => console.log("Connection Success")).catch(err => {
+  console.log("Connection Failed", (err));
+})
+
 
 var app = express();
-app.use(cors());
+// app.use(cors());
+app.use(bodyParser.json());
 
-const _app_folder = 'dist/';
+const _app_folder = './dist/';
 
 
 // view engine setup
@@ -19,29 +29,31 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(_app_folder));
 
-app.get('*.*', express.static(_app_folder, {maxAge: '1y'}));
+// app.get('*', express.static(_app_folder));
 
 // ---- SERVE APLICATION PATHS ---- //
-app.all('*', function (req, res) {
-    res.status(200).sendFile(`/`, {root: _app_folder});
+app.get('/', function (req, res) {
+  res.status(200).sendFile(`/`, {
+    root: _app_folder
+  });
 });
 
-
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

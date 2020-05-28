@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactModel } from 'src/app/interfaces/contactModel';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +15,12 @@ export class HomeComponent implements OnInit {
   ];
 
 
+  searchForm:FormGroup;
+  
   constructor() { }
 
   ngOnInit(): void {
-    
+    this.searchForm = new FormGroup({})
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { stringify } from 'querystring';
+import { HttpService } from 'src/app/services/httpService';
+import { ContactModel } from 'src/app/interfaces/contactModel';
 
 @Component({
   selector: 'app-new-contact',
@@ -10,49 +12,75 @@ import { stringify } from 'querystring';
 export class NewContactComponent implements OnInit {
 
   newContactFromGroup: FormGroup;
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(private formBuilder: FormBuilder, private httpService: HttpService) {
     this.newContactFromGroup = this.formBuilder.group({
-      name:[],
-      phoneNumber: this.formBuilder.array([this.formBuilder.group({id:''})]),
-      email:this.formBuilder.array([this.formBuilder.group({id:''})]),
-      dateOfBirth:[],
-      singlePhoneNumner:[],
-      singleEmail:[]
-
+      name: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      singleNumberInput: ['', Validators.required],
+      singleEmailInput: ['', [Validators.required, Validators.email]],
+      phoneNumbers: this.formBuilder.array([]),
+      emails: this.formBuilder.array([])
     })
   }
 
-  get numberArrays(){
-    return this.newContactFromGroup.get('phoneNumber') as FormArray;
-  } 
-
-  get emailArray(){
-    return this.newContactFromGroup.get('email') as FormArray;
+  get phoneNumbersArray() {
+    return this.newContactFromGroup.get('phoneNumbers') as FormArray;
+  }
+  get emailArray() {
+    return this.newContactFromGroup.get('emails') as FormArray
   }
 
-  //Called when the new number input is to be called
-  addPhoneNumberInput(){
-    this.numberArrays.push(this.formBuilder.group({id:""}))
+  addPhoneInput() {
+    this.phoneNumbersArray.push(this.formBuilder.control('', [Validators.required]));
+  }
+  removePhoneInput(value) {
+    this.phoneNumbersArray.removeAt(value);
   }
 
-  //Called when the number input is to be removed
-  removePhoneNumberInput(index){
-    this.numberArrays.removeAt(index);
+  addEmailInput() {
+    this.emailArray.push(this.formBuilder.control('', [Validators.required, Validators.email]));
+  }
+  removeEmailInput(value) {
+    this.emailArray.removeAt(value);
   }
 
-  addEmailInput(){
-    this.emailArray.push(this.formBuilder.group({id:""}))
-  }
 
-  removeEmailInput(index){
-    this.emailArray.removeAt(index);
-  }
-  createNewContact(){
-    console.log(this.newContactFromGroup.valid)
+
+
+  onSubmit() {
+    let name = this.newContactFromGroup.get('name').value;
+    let dateOfBirth = this.newContactFromGroup.get('dateOfBirth').value;
+
+
+    // Get the numbers array from the form
+    let phoneNumbers = this.newContactFromGroup.get('phoneNumbers').value;
+    //push the numbers element which is mandatory
+    phoneNumbers.push(this.newContactFromGroup.get('singleNumberInput').value)
+
+
+    // Get the numbers element which is mandatory
+    let emails = this.newContactFromGroup.get('emails').value;
+    //push the numbers element which is mandatory
+    emails.push(this.newContactFromGroup.get('singleEmailInput').value);
+
+    // request to be forwareded to the server
+    var request: ContactModel = {
+      name,
+      dateOfBirth,
+      phoneNumber: phoneNumbers,
+      email: emails
+    }
+
+    this.httpService.createNewContact(request).subscribe(result=>{
+      console.log(result);
+    })
+
+
+
   }
 
   ngOnInit(): void {
-    
+
   }
 
 }

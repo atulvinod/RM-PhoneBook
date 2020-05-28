@@ -8,6 +8,8 @@ import { PhoneRecordComponent } from './components/phone-record/phone-record.com
 import { NewContactComponent } from './components/new-contact/new-contact.component';
 import { EditContactComponent } from './components/edit-contact/edit-contact.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { HttpService } from './services/httpService';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,12 @@ import {ReactiveFormsModule} from '@angular/forms';
     EditContactComponent
   ],
   imports: [
+    HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
