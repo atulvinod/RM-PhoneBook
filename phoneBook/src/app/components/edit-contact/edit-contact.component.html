@@ -50,6 +50,15 @@
               </div>
 
         <div>
+     
+          <div *ngIf="showAlreadyExistsError" style="background-color: brown; color: white;padding: 10px;">
+            <h6>One of the number already exists </h6>
+          </div>
+          <br>
+          <div *ngIf="showSuccessMessage" style="background-color: green; color: black;padding: 10px;">
+            <h6>Your contact has been updated! </h6>
+          </div>
+          <br>
             <input type="button" value="Save Changes" class="btn" [disabled]="!editFormGroup.valid" (click)="onSubmit()">
         </div>
           </form>

@@ -12,10 +12,12 @@ import { ContactModelPayload } from 'src/app/interfaces/contactModelPayload';
 export class NewContactComponent implements OnInit {
 
   newContactFromGroup: FormGroup;
+  showAlreadyExistsError = false
+  showSuccessMessage = false;
   constructor(private formBuilder: FormBuilder, private httpService: HttpService) {
     this.newContactFromGroup = this.formBuilder.group({
       name: ['', Validators.required],
-      dateOfBirth: ['', Validators.required],
+      dateOfBirth: [''],
       singleNumberInput: ['', Validators.required],
       singleEmailInput: ['', [Validators.required, Validators.email]],
       phoneNumbers: this.formBuilder.array([]),
@@ -70,7 +72,18 @@ export class NewContactComponent implements OnInit {
     }
 
     this.httpService.createNewContact(request).subscribe(result=>{
-      console.log(result);
+      console.log(result)
+      if(result["status"]=="exists"){
+        this.showAlreadyExistsError = true;
+        setTimeout(()=>!this.showAlreadyExistsError,5000);
+      }else{
+        this.showSuccessMessage = true;
+        this.showAlreadyExistsError = false;
+        this.phoneNumbersArray.clear();
+        this.emailArray.clear();
+        this.newContactFromGroup.reset();
+        setTimeout(()=>!this.showSuccessMessage,5000);
+      }
     })
 
 

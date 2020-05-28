@@ -35,6 +35,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(_app_folder));
+app.options('*', cors())
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

@@ -27,4 +27,7 @@ export class HttpService{
     getSingleContact(id){
         return this.http.post(this.baseURL+'api/getSingleContact',{id})
     }
+    deleteContact(id){
+        return this.http.post(this.baseURL+'api/deleteContact',{id})
+    }
 }

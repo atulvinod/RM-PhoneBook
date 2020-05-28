@@ -58,8 +58,14 @@
         
         </div>
 
-
-
+        <div *ngIf="showAlreadyExistsError" style="background-color: brown; color: white;padding: 10px;">
+          <h6>One of the number already exists </h6>
+        </div>
+        <br>
+        <div *ngIf="showSuccessMessage" style="background-color: green; color: black;padding: 10px;">
+          <h6>Your contact has been uploaded! </h6>
+        </div>
+        <br>
         <button class="btn" (click)="onSubmit()" [disabled]="newContactFromGroup.valid==false" > Create new Contact</button>
       </form>
 

@@ -15,7 +15,8 @@ export class EditContactComponent implements OnInit {
 
   editFormGroup: FormGroup
   contactId: string;
-
+  showAlreadyExistsError = false
+  showSuccessMessage = false
   constructor(private router: Router, private routerSnapShot: ActivatedRoute, private http: HttpService, private formBuilder: FormBuilder) {
 
     this.editFormGroup = this.formBuilder.group({
@@ -95,7 +96,18 @@ export class EditContactComponent implements OnInit {
     }
     console.log(requestForUpdate)
     this.http.updateContact(requestForUpdate).subscribe(result=>{
-      
+      console.log(result)
+      if(result["status"]=="exists"){
+        this.showAlreadyExistsError = true;
+        setTimeout(()=>!this.showAlreadyExistsError,5000);
+      }else{
+        this.showSuccessMessage = true;
+        this.showAlreadyExistsError = false;
+        this.getPhoneInputsArray.clear();
+        this.getEmailInputsArray.clear();
+        this.editFormGroup.reset();
+        setTimeout(()=>!this.showSuccessMessage,5000);
+      }
     })
   }
 

@@ -17,7 +17,10 @@
                 <span> Date of Birth : {{ContactModel.dateOfBirth}}</span>
                 <button class="controls right btn blue" (click)="editContact()">Edit</button>
                 &nbsp; &nbsp;
-                <button class="controls right btn red" style="margin-right:5px">Delete</button>
+                <button class="controls right btn red pulse" (click)="deleteContact()" style="margin-right:5px">Delete</button>
+                <div class="progress" *ngIf="showDeleteIndicator">
+                    <div class="indeterminate"></div>
+                </div>
             </div>
 
             <div class="row" style="margin-top: 1rem;" [@toggle]="toggleState">
