@@ -18,7 +18,13 @@
 
 }
 #searchContainer{
-    margin-top: 4rem;
     border: 1px solid #153357;
-    border-radius:10px
+    border-radius:10px;
+    margin-top:4rem
+}
+#contactsView{
+    margin-top: 1rem;
+    padding-left: 4%;
+    padding-right:4%;
+    
 }

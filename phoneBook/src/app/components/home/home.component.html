@@ -1,5 +1,6 @@
 <div class="container">
 
+  <!-- Search Container -->
   <div id="searchContainer" class="card">
     <form action="" class="displayFlex">
       <div class="inline" style="flex:1" id="searchBarContainer">
@@ -11,16 +12,24 @@
     </form>
   </div>
 
-  <hr>
+  <!-- Line break between the search container and the contactsView -->
+  <hr style="margin-top:4rem">
 
-  <div class="fixed-action-btn">
-    <a class="btn-floating btn-large red">
-      <i class="large material-icons">add</i>
-    </a>
+  <div id="contactsView" >
+   <app-phone-record *ngFor="let i of contacts" [ContactModel]=i></app-phone-record>
   </div>
+
+
+  <!-- Floating action button -->
+  
+</div>
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large red" [routerLink]="['addNewContact']">
+    <i class="large material-icons">add</i>
+  </a>
 </div>
 
-
+<!-- Pagenated Footer -->
 <footer style="text-align: center;">
     <ul class="pagination">
         <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
