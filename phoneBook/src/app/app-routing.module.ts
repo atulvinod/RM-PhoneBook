@@ -5,11 +5,11 @@ import { NewContactComponent } from './components/new-contact/new-contact.compon
 
 
 const routes: Routes = [{
-  path:"",
-  component:HomeComponent,
-},{
-  path:"addNewContact",
-  component:NewContactComponent
+  path:'',
+  component: HomeComponent,
+}, {
+  path: 'addNewContact',
+  component: NewContactComponent
 }];
 
 @NgModule({
