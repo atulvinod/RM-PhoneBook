@@ -37,6 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(_app_folder));
 app.options('*', cors())
 
+
+// Middleware to enable CORS
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -45,7 +47,7 @@ app.use(function(req, res, next) {
 })
 
 
-// app.get('*', express.static(_app_folder));
+
 
 // ---- SERVE APLICATION PATHS ---- //
 app.get('/', function (req, res) {

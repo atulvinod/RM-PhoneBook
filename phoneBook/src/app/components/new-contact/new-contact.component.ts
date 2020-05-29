@@ -12,9 +12,14 @@ import { ContactModelPayload } from 'src/app/interfaces/contactModelPayload';
 export class NewContactComponent implements OnInit {
 
   newContactFromGroup: FormGroup;
+
+  //Message flags
   showAlreadyExistsError = false
   showSuccessMessage = false;
+
   constructor(private formBuilder: FormBuilder, private httpService: HttpService) {
+
+    //Create the Form 
     this.newContactFromGroup = this.formBuilder.group({
       name: ['', Validators.required],
       dateOfBirth: [''],
@@ -32,6 +37,7 @@ export class NewContactComponent implements OnInit {
     return this.newContactFromGroup.get('emails') as FormArray
   }
 
+  //To add and remove phone and email inputs
   addPhoneInput() {
     this.phoneNumbersArray.push(this.formBuilder.control('', [Validators.required]));
   }
@@ -68,23 +74,31 @@ export class NewContactComponent implements OnInit {
       dateOfBirth,
       phoneNumber: phoneNumbers,
       email: emails,
-  
+
     }
 
-    this.httpService.createNewContact(request).subscribe(result=>{
-      console.log(result)
-      if(result["status"]=="exists"){
-        this.showAlreadyExistsError = true;
-        setTimeout(()=>!this.showAlreadyExistsError,5000);
-      }else{
-        this.showSuccessMessage = true;
-        this.showAlreadyExistsError = false;
-        this.phoneNumbersArray.clear();
-        this.emailArray.clear();
-        this.newContactFromGroup.reset();
-        setTimeout(()=>!this.showSuccessMessage,5000);
-      }
-    })
+    this.httpService.createNewContact(request)
+      .subscribe(result => {
+
+        //If the contact exists then show error banners
+        if (result["status"] == "exists") {
+          
+          this.showAlreadyExistsError = true;
+          this.phoneNumbersArray.clear();
+          this.emailArray.clear();
+          setTimeout(() => !this.showAlreadyExistsError, 5000);
+
+        } else {
+
+          this.showSuccessMessage = true;
+          this.showAlreadyExistsError = false;
+          this.phoneNumbersArray.clear();
+          this.emailArray.clear();
+          this.newContactFromGroup.reset();
+          setTimeout(() => !this.showSuccessMessage, 5000);
+          
+        }
+      })
 
 
 

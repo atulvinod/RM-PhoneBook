@@ -16,7 +16,10 @@
 
 
 }
-
+.input-field{
+    margin: 1px;
+    
+}
 /* To remove the bottom border and increase the font-size */
 .infoViews{
     border-bottom: none !important;

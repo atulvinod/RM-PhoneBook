@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 
 const Schema =  mongoose.Schema;
 
+
+/** Model for contacts */
 const Contact = new Schema({
     name:{
         type:String,

@@ -4,12 +4,15 @@
   <div id="searchContainer" class="card">
     <form action="" class="displayFlex" [formGroup]="searchForm">
       <div class="inline" style="flex:1" id="searchBarContainer">
-        <input type="text" value="" id="searchBar" placeholder="Search Your Contacts">
+        <input type="text" value="" id="searchBar" placeholder="Search Your Contacts" (focus) = 'showSearchBox=true' (keyup)="search($event)">
       </div>
       <div class="inline">
         <button class="btn ">Search</button>
       </div>
     </form>
+    <div style="position: relative; z-index: 4;" *ngIf="showSearchBox" id="searchBox" (click)="showSearchBox=true" (mouseleave)="clearSearch()">
+      <app-phone-record *ngFor="let i of searchResults; let k = index" [ContactModel]=i [referenceId]=k (deleteEvent)="deleteContact($event)" (mouseover)="showSearchBox=true"></app-phone-record>
+    </div>
   </div>
 
   <!-- Line break between the search container and the contactsView -->

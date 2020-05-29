@@ -22,10 +22,12 @@ export class HomeComponent implements OnInit {
 
   showLoader:boolean = true
 
-
+  showSearchBox = true
 
 
   searchForm: FormGroup;
+
+  searchResults:ContactModel[] = []
   
   constructor(private httpService: HttpService) {
     
@@ -33,9 +35,13 @@ export class HomeComponent implements OnInit {
 
    // this function pagenates the array
    pagenateResults(array:ContactModel[]){
+
+    //to temporarily store the data
     this.pagenatedResults = []
     let onepage:ContactModel[] = [];
     let pageCounter = 0;
+
+    //Iterate over all the contacts and create arrays
     for(let i = 0 ; i < array.length ; i++ ){
       if((i+1)%4==0){
         onepage.push(array[i]);
@@ -46,15 +52,19 @@ export class HomeComponent implements OnInit {
       }
       onepage.push(array[i])
     }
+    
     this.pagenatedResults.push(onepage)
     this.totalPages = this.pagenatedResults.length;
     
    }
 
+   //Called by pagenation tabs
    choosePage(value){
       this.currentPage = value;
       
    }
+
+   // To remove a contact from page as well as to generate a delete request
    deleteContact(id){
      
      this.httpService.deleteContact(id).subscribe((result)=>{
@@ -67,13 +77,21 @@ export class HomeComponent implements OnInit {
             return element;
           }
         })
+
+        this.searchResults = this.searchResults.filter(element=>{
+          if(element._id != id){
+            return element;
+          }
+        })
+
+        //After deletion, pagenate the remaining elements
         this.pagenateResults(this.allContacts);
        }
 
 
      })
    }
-
+   // Pagenation controls
    nextPage(){
       if(this.currentPage + 1 < this.pagenatedResults.length){
         this.currentPage ++;
@@ -83,6 +101,27 @@ export class HomeComponent implements OnInit {
     if(this.currentPage - 1 >= 0){
       this.currentPage--;
     }
+   }
+
+   search(event){
+     let query = event.target.value;
+
+     // If the query is empty then clear the search results to refresh
+     if(query=="")
+     {
+       this.searchResults = [];
+       return;
+     }
+     console.log(query);
+     this.httpService.searchContact(query).subscribe((result:ContactModel[])=>{
+       this.searchResults = result
+     })
+   }
+
+   clearSearch(){
+     this.searchResults
+      = [];
+      this.showSearchBox = false;
    }
 
   ngOnInit(): void {

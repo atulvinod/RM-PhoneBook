@@ -8,7 +8,8 @@ import { ContactModelPayload } from '../interfaces/contactModelPayload';
 })
 export class HttpService{
 
-    baseURL = "http://localhost:3000/"
+    /**This service is used as a repository for HTTP calls */
+    baseURL = ""
 
     constructor(private http: HttpClient){
 
@@ -29,5 +30,8 @@ export class HttpService{
     }
     deleteContact(id){
         return this.http.post(this.baseURL+'api/deleteContact',{id})
+    }
+    searchContact(query){
+        return this.http.post(this.baseURL+"api/search",{query})
     }
 }

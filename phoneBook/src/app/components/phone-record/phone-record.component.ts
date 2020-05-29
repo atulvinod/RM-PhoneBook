@@ -24,11 +24,13 @@ export class PhoneRecordComponent implements OnInit {
   @Input() ContactModel: ContactModel;
   @Input() referenceId:String;
 
+  //Event emitter when delete event is generated
   @Output() deleteEvent = new  EventEmitter<String>();
 
 
   toggleState = "true"
   showDeleteIndicator = false;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -36,12 +38,15 @@ export class PhoneRecordComponent implements OnInit {
   }
 
   editContact() {
+    //Navigate to edit 
     this.router.navigate(['editContact', this.ContactModel._id])
   }
   deleteContact() {
     this.showDeleteIndicator = true;
     this.deleteEvent.emit(this.ContactModel._id);
   }
+
+  // Toggle state for animation
   changeState() {
     if (this.toggleState == "false") {
       this.toggleState = "true"
