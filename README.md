@@ -12,7 +12,7 @@ database
 ## Setting up 
 1.  the mongodb URL in `configuration.js` in phoneBookServer folder
 
-2 . Set the `baseURL` in `services/httpClient` to the location where the node.js server is hosted.
+2 . Set the `baseURL` in `services/httpClient` in `phoneBook` to the location where the node.js server is hosted.
 If the appplication is hosted on the same location as the server, set `baseURL = ""`
 
 ## Deployment
